@@ -1,6 +1,5 @@
-# Introduction to microbiomics
-VirtualBox VM image prepared to be used during Introduction to microbiomics course
-
+# Introduction to Microbiomics - 18-19/Nov/2021
+VirtualBox VM image prepared to be used during Introduction to microbiomics offered by Integrative Omics group at LNBR/CNPEM.
 
 ### How to download and install VirtualBox VM with the bioinformatics environment necessary to the course
 
