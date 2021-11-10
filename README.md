@@ -23,3 +23,8 @@ and select the proper version according to host's OS;
 
 https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.sh .
 
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
