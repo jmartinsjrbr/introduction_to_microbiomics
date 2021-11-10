@@ -15,7 +15,7 @@ and select the proper version according to host's OS;
 
  - Zipped version (splitted in 4 files): https://www.dropbox.com/sh/ey38wcrcuv43wxi/AAC9x3PBn1dMwrHn7hamZIrBa?dl=0 (zipped version splitted into 4 files, that must be unziped before to import it to VirtualBox) or 
 
- - Single image file version: https://www.dropbox.com/sh/8ziyw3eujn9ic28/AAAF3mgAl2y8ybjneVoSbJm0a?dl=0 ;
+ - Single image file version: https://www.dropbox.com/sh/er05qrscv9up2zg/AAA3u_Z4hhyn1DJB2lMcapQba?dl=0 ;
 
 4-	 Finally, click in **next** to review VM settings and click in the **import** button;
 
