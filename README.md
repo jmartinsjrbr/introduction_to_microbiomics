@@ -19,7 +19,7 @@ and select the proper version according to host's OS;
 
 4-	 Finally, click in **next** to review VM settings and click in the **import** button;
 
-5-	Alternatively, those ones which has a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment;
+5-	Alternatively, those ones which have a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment;
 
 https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.sh .
 
