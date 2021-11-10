@@ -11,9 +11,9 @@ and select the proper version according to host's OS;
 
 2-	Download and install Oracle VM VirtualBox extension pack from https://download.virtualbox.org/virtualbox/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack 
 
-3-	To import VM image, open VirtualBox, go to ‘File menu’ and select ‘Import Appliance’. Next, in the following windows, keep ‘Local File System’ selected in Options drop-down menu and search for VM image you have download from https://teams.microsoft.com/_#/files/General?groupId=a95c950b-420a-4c67-8a9f-d2b9186e6b84&threadId=19%3AaiOG91ElFqHsvTNGYTBiOgyIQbAEtcbmn-OzDGQ2P-I1%40thread.tacv2&ctx=channel&context=VM_zipped&rootfolder=%252Fsites%252FOmicscourse%252FDocumentos%2520Compartilhados%252FGeneral%252FOmics_Course%252FVM%252FVM_zipped (zipped version splitted into 4 files) or https://www.dropbox.com/sh/8ziyw3eujn9ic28/AAAF3mgAl2y8ybjneVoSbJm0a?dl=0 (one file version)
+3-	To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options drop-down** menu and search for VM image you have download from https://teams.microsoft.com/_#/files/General?groupId=a95c950b-420a-4c67-8a9f-d2b9186e6b84&threadId=19%3AaiOG91ElFqHsvTNGYTBiOgyIQbAEtcbmn-OzDGQ2P-I1%40thread.tacv2&ctx=channel&context=VM_zipped&rootfolder=%252Fsites%252FOmicscourse%252FDocumentos%2520Compartilhados%252FGeneral%252FOmics_Course%252FVM%252FVM_zipped (zipped version splitted into 4 files) or https://www.dropbox.com/sh/8ziyw3eujn9ic28/AAAF3mgAl2y8ybjneVoSbJm0a?dl=0 (one file version)
 
-4-	 Finally, click in *next* to review VM settings and click in “import”
+4-	 Finally, click in *next* to review VM settings and click in the *import* button.
 
 5-	Alternatively, those ones which has a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment.
 
