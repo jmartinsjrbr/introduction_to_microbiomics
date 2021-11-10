@@ -9,7 +9,7 @@ The steps below will guide you to proceed with virtualbox installation and VM se
 1-	Download and install VirtualBox from: https://www.virtualbox.org/wiki/Downloads
 and select the proper version according to host's OS;
 
-2-	Download and install Oracle VM VirtualBox extension pack from https://download.virtualbox.org/virtualbox/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack ;
+2-	Download and install Oracle VM VirtualBox extension pack from: https://download.virtualbox.org/virtualbox/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack ;
 
 3-	To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options** drop-down menu and search for VM image you have download from:
 
