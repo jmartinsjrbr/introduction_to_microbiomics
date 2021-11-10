@@ -28,3 +28,8 @@ https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.
 chmod u+x setup_vm.sh
 ./setup_vm.sh
 ```
+
+## Practices guidelines
+In this section you will find a guideline for each practice that will be offered during the course
+
+(coming soon...)
