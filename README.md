@@ -17,5 +17,5 @@ and select the proper version according to host's OS;
 
 5-	Alternatively, those ones which has a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment.
 
-https://cnpemcamp.sharepoint.com/sites/Omicscourse/Documentos%20Compartilhados/General/Omics_Course/VM/setup_vm.sh
+https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.sh
 
