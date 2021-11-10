@@ -7,7 +7,7 @@
 ###OS UBUNTU 20.04 LTS 64bits###
 echo "**** UPDATING SYSTEM ****"
 sudo apt update && sudo apt list --upgradable && sudo apt upgrade
-sudo apt install python3-pip git byobu tmux vim curl libcurl4-openssl-dev libxml2 libxml2-dev
+sudo apt install python3-pip git byobu tmux vim curl libcurl4-openssl-dev libxml2 libxml2-dev python3 python-is-python3
 sudo apt install openjdk-11-jdk openjdk-11-jdk-headless openjdk-11-jre-headless
 
 #Install R
