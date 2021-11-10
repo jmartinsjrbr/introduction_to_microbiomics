@@ -1,4 +1,4 @@
-# Introduction_to_microbiomics
+# Introduction to microbiomics
 VirtualBox VM image prepared to be used during Introduction to microbiomics course
 
 
