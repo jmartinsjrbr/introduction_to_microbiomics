@@ -7,7 +7,7 @@ VirtualBox VM image prepared to be used during Introduction to microbiomics cour
 The steps below will guide you to proceed with virtualbox installation and VM setup: The VM was previously set with all softwares necessary for doing the course. 
 
 1-	Download and install VirtualBox from https://www.virtualbox.org/wiki/Downloads
-and select the proper version according to host OS;
+and select the proper version according to host's OS;
 
 2-	Download and install Oracle VM VirtualBox extension pack from https://download.virtualbox.org/virtualbox/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack 
 
@@ -15,7 +15,7 @@ and select the proper version according to host OS;
 
 4-	 Finally, click in next to review VM settings and click in “import”
 
-5-	Alternatively, those ones which has a powerful workstation computer can download the script in the link below to automatically setup the bioinformatics environment.
+5-	Alternatively, those ones which has a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment.
 
 https://cnpemcamp.sharepoint.com/sites/Omicscourse/Documentos%20Compartilhados/General/Omics_Course/VM/setup_vm.sh
 
