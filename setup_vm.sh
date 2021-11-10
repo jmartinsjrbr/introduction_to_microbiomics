@@ -2,7 +2,7 @@
 
 ###THIS SCRIPT IS FOR INSTALLING THE NECESSARY PROGRAMS FOR OMICS COURSE ###
 #@Author: Joaquim Martins Junior ###
-#@Last update: 03-11-2021 ###
+#@Last update: 04-11-2021 ###
 
 ###OS UBUNTU 20.04 LTS 64bits###
 echo "**** UPDATING SYSTEM ****"
