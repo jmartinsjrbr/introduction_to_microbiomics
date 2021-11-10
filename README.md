@@ -23,7 +23,7 @@ and select the proper version according to host's OS;
 
 https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.sh .
 
- - Type the following command to run it on linux terminal
+ - Type the following commands to run it on linux terminal
 ```bash
 chmod u+x setup_vm.sh
 ./setup_vm.sh
