@@ -4,7 +4,7 @@ VirtualBox VM image prepared to be used during Introduction to microbiomics cour
 
 ## How to download and install VirtualBox VM with the bioinformatics environment necessary to the course
 
-The steps below will guide you to proceed with virtualbox installation and VM setup: The VM was previously prepared with all softwares necessary for doing the course. 
+The steps below will guide you to proceed with virtualbox installation and VM setup: The VM is prepared with all softwares necessary for doing the course. 
 
 1-	Download and install VirtualBox from: https://www.virtualbox.org/wiki/Downloads
 and select the proper version according to host's OS;
