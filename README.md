@@ -55,79 +55,40 @@ cp -r ~/omics_course/progs/samsa2/sample_files_paired-end/1_starting_files/*.fas
 Setup pathways 
 
 # VARIABLES - Set pathway for starting_location to location of samsa2  
-
- 
-
 #0. Set starting location: 
-
 starting_location=~/omics_course/progs/samsa2 
 
- 
-
 #00. Starting files location 
-
 starting_files_location=~/omics_course/metatranscriptomics 
 
-  
-
 #1. PEAR 
-
 pear_location=$starting_location/programs/pear-0.9.10-linux-x86_64/bin 
 
-  
-
 #2. Trimmomatic 
-
 trimmomatic_location=$starting_location/programs/Trimmomatic-0.36 
 
-  
-
 #3. SortMeRNA 
-
 sortmerna_location=$starting_location/programs/sortmerna-2.1 
 
- 
-
 #4. DIAMOND 
-
 #diamond_database="$starting_location/full_databases/RefSeq_bac" 
-
 #diamond_subsys_db="$starting_location/full_databases/subsys_db" 
-
- 
-
 diamond_database="$starting_location/setup_and_test/tiny_databases/RefSeq_bac_TINY_24MB" 
-
- diamond_subsys_db="$starting_location/setup_and_test/tiny_databases/subsys_db_TINY_24MB" 
-
-  
-
+diamond_subsys_db="$starting_location/setup_and_test/tiny_databases/subsys_db_TINY_24MB" 
 diamond_location="$starting_location/programs/diamond" 
 
- 
-
 #5. Aggregation 
-
 python_programs=$starting_location/python_scripts 
-
 #RefSeq_db="$starting_location/full_databases/RefSeq_bac.fa" 
-
 #Subsys_db="$starting_location/full_databases/subsys_db.fa" 
-
-  
-
 RefSeq_db="$starting_location/setup_and_test/tiny_databases/RefSeq_bac_TINY_24MB.fa" 
-
- Subsys_db="$starting_location/setup_and_test/tiny_databases/subsys_db_TINY_24MB.fa" 
-
-  
+Subsys_db="$starting_location/setup_and_test/tiny_databases/subsys_db_TINY_24MB.fa" 
 
 #6. R scripts and paths 
-
 export R_LIBS="$starting_location/R_scripts/packages" 
-
 R_programs=$starting_location/R_scripts 
 ```
+
 ### Metagenomics: from reads to MAGs
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
 
