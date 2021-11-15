@@ -37,6 +37,7 @@ In this hands on practice you will have the opportunity to learn all the steps i
 As an example, we will use a reduced version of the metaHIT survey dataset available at .... with metawrap pipeline (https://github.com/bxlab/metaWRAP).
 
 ![image](https://user-images.githubusercontent.com/11639261/141855861-4383c93f-40a0-4d66-bdaa-791b33fddaaf.png)
+(https://www.gutmicrobiotaforhealth.com/metahit/)
 
 
 
