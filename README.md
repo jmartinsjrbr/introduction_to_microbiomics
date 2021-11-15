@@ -123,7 +123,8 @@ mv $starting_files_location/*merged* $starting_files_location/step_1_output/
 ```
 **Result:** A fastq sequence file with overlapping paired-end reads merged for each sample.  Additionally, separate files are produced for the not combined reads; these may be included as well in the analysis. 
 
-- Removal of adaptor contamination and low-quality reads 
+- Removal of adaptor contamination and low-quality reads
+
 Raw sequences may contain low-quality reads, or reads with “contamination” – the adaptor sequences used for the process of sequencing may have been accidentally read as part of the read.  These contaminated and low-quality sequences should be removed to avoid skewing the results of a metatranscriptome analysis. 
 There are many programs available for cleaning and removing adaptor sequences from raw sequence files; this pipeline is set up to use Trimmomatic (http://www.usadellab.org/cms/?page=trimmomatic).  This Java application includes primer sequences for Illumina machines, and can be used to filter out adaptor sequences from either single-end or paired-end sequencing. 
 The command is structured like so: 
