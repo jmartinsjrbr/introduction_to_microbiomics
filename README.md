@@ -137,6 +137,67 @@ Details on these parameters, as well as other commands, can be found in the Trim
 java -jar $trimmomatic_location/trimmomatic-0.36.jar SE -phred33 $starting_files_location/step_1_output/control_1_TINY_merged.assembled.fastq $starting_files_location/step_1_output/control_1_TINY_clean.fastq SLIDINGWINDOW:4:15 MINLEN:99 
 ```
 
+- Make a script to run all files 
+```
+for file in $starting_files_location/step_1_output/*.assembled.* 
+do 
+     name=`echo $file | awk -F "merged" '{print $1 "clean.fastq"}'` 
+     java -jar $trimmomatic_location/trimmomatic-0.36.jar SE -phred33 $file $name SLIDINGWINDOW:4:15 MINLEN:99 
+done 
+```
+- To organize files create a folder and copy the merged files to the new fold 
+```
+mkdir $starting_files_location/step_2_output/ 
+mv $starting_files_location/step_1_output/*clean.fastq $starting_files_location/step_2_output/ 
+```
+- GETTING RAW SEQUENCES COUNTS 
+```
+for file in $starting_files_location/step_2_output/*clean.fastq 
+do 
+     python3 $python_programs/raw_read_counter.py -I $file -O $starting_files_location/step_2_output/raw_counts.txt 
+done 
+```
+
+- Removal of ribosome sequences 
+One issue when sequencing extracted RNA is filtering out mRNA from the much more common ribosomal RNA, or rRNA. Although rRNA comprises the majority of all extracted RNA from microbiome communities, it can obscure the more important mRNAs.  For best results, ribodepletion methods should be used on the biological samples after RNA extraction and before sequencing as a quality control step. 
+
+However, biological ribodepletion kits are not completely effective at removing all ribosomes.  Stripping out remaining ribosomal reads will help increase the speed of downstream pipeline steps, by resulting in fewer total reads to be annotated (the slowest and most computationally intensive step) and analyzed. 
+
+SortMeRNA (http://bioinfo.lifl.fr/RNA/sortmerna/) is a robust ribosomal read filtering tool that can incorporate multiple databases (SILVA, GreenGenes, RDP) for rRNA identification.  Note that SortMeRNA was originally designed to select rRNA sequences, rather than to remove them, and so the reads discarded by SortMeRNA are, in fact, the mRNAs needed for metatranscriptome analysis. 
+For detailed instructions on using SortMeRNA, be sure to consult the included user manual for version 2.1.   
+
+Note that the “--other" flag MUST be applied when using SortMeRNA!  Without this flag, all reads that do not match the ribosomal RNAs in the reference will be discarded.  These reads are, in fact, the mRNAs, and must be preserved for the following steps in the SAMSA pipeline. 
+
+Example SortMeRNA command (matching against the 16S SILVA bacterial database, included in SortMeRNA download): 
+```
+sortmerna --refsilva-bac-16s-db --reads $file.fastq --aligned $file.ribosomes --other $file.ribodepleted --fastx --num_alignments 1 --log –v 
+```
+From this command, two files will be produced; the $file.ribosomes will contain all sequences from the original file identified as rRNA, while the $file.ribodepleted will contain all reads discarded by SortMeRNA (aka not identified as ribosomes, to be used in the next step of the SAMSA pipeline). 
+
+Note that while the identified ribosomal sequences can potentially be used for other analyses, the biological ribodepletion that is strongly recommended for all samples before sequencing will likely skew these results, making them unusable for organism-specific abundance measurements. 
+
+**Result:** A fastq sequence file with ribosomal sequences removed; additionally, a second file is created containing said ribosomal sequences for optional taxonomic profiling. 
+```
+#REMOVING RIBOSOMAL READS WITH SORTMERNA 
+# Note: this step assumes that the SortMeRNA databases are indexed. If not, do that first (see the SortMeRNA user manual for details). 
+for file in $starting_files_location/step_2_output/*clean.fastq 
+do 
+  name=`echo $file | awk -F "clean" '{print $1 "ribodepleted"}'` 
+sortmerna_location/sortmerna \ 
+--ref $sortmerna_location/rRNA_databases/silva-bac-16s-id90.fasta,$sortmerna_location/index/silva-bac-16s-db \ 
+--reads $file \ 
+--aligned $file.ribosomes \ 
+--other $name \ 
+--fastx \ 
+--num_alignments 0 \ 
+--log -v 
+done 
+
+mkdir $starting_files_location/step_3_output/ 
+
+mv $starting_files_location/step_2_output/*ribodepleted* $starting_files_location/step_3_output/ 
+```
+
 ### Metagenomics: from reads to MAGs
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
 
