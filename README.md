@@ -31,4 +31,5 @@ chmod u+x setup_vm.sh
 ## Practices guidelines
 In this section you will find a guideline for each practice that will be offered during the course
 
-(coming soon...)
+### Metagenomics: from reads to MAGs
+In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
