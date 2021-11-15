@@ -52,6 +52,7 @@ cp -r ~/omics_course/progs/samsa2/sample_files_paired-end/1_starting_files/*.fas
 
 - Setup pathways
 ```
+#!/bin/bash
 Setup pathways 
 
 # VARIABLES - Set pathway for starting_location to location of samsa2  
@@ -87,6 +88,53 @@ Subsys_db="$starting_location/setup_and_test/tiny_databases/subsys_db_TINY_24MB.
 #6. R scripts and paths 
 export R_LIBS="$starting_location/R_scripts/packages" 
 R_programs=$starting_location/R_scripts 
+```
+#### Preprocessing 
+The first steps in analyzing metatranscriptomics data will be the preprocessing of reads or reads QC to remove low-quality data. In SANSA pipeline, if performed paired-end sequencing, reads must be merged and filtered to remove low-quality reads and adaptor contamination. 
+
+- Paired-end read merging 
+If paired-end sequencing was performed, there will be two FASTQ sequence files for each sample provided; Sample names have “R1” and “R2”.  R1 contains the forward reads, while R2 contains the reverse reads.   
+
+One way to merge these two files is using a read merging program, such as PEAR (Paired End reAd mergeR)( https://sco.h-its.org/exelixis/web/software/pear/ ).  
+To use PEAR for merging two paired-end reads, run it from the command line, using the following command: 
+```
+./pear –f forward_reads.fastq –r reverse_reads.fastq  
+```
+ To see PEAR options, use the following command:  
+```
+./pear –help | less 
+```
+- Make a script to run all files 
+```
+cd $starting_files_location 
+for file in $starting_files_location/*R1* 
+do 
+     file1=$file 
+     file2=`echo $file1 | awk -F "R1" '{print $1 "R2" $2}'` 
+     out_name=`echo $file | awk -F "R1" '{print $1 "merged"}'` 
+     #out_name=`echo ${out_path##*/}` 
+     $pear_location/pear -f $file1 -r $file2 -o $out_name 
+done 
+```
+- To organize files create a folder and copy the merged files to the new fold 
+```
+mkdir $starting_files_location/step_1_output/ 
+mv $starting_files_location/*merged* $starting_files_location/step_1_output/ 
+```
+**Result:** A fastq sequence file with overlapping paired-end reads merged for each sample.  Additionally, separate files are produced for the not combined reads; these may be included as well in the analysis. 
+
+- Removal of adaptor contamination and low-quality reads 
+Raw sequences may contain low-quality reads, or reads with “contamination” – the adaptor sequences used for the process of sequencing may have been accidentally read as part of the read.  These contaminated and low-quality sequences should be removed to avoid skewing the results of a metatranscriptome analysis. 
+There are many programs available for cleaning and removing adaptor sequences from raw sequence files; this pipeline is set up to use Trimmomatic (http://www.usadellab.org/cms/?page=trimmomatic).  This Java application includes primer sequences for Illumina machines, and can be used to filter out adaptor sequences from either single-end or paired-end sequencing. 
+The command is structured like so: 
+```
+java -jar trimmomatic-0.33.jar SE –phred33 $infile $outfile_name SLIDINGWINDOW:4:15 MINLEN:99 
+```
+Details on these parameters, as well as other commands, can be found in the Trimmomatic manual.  That manual can be accessed here: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf   
+**Result:** A fastq sequence file with low-quality sequences and adaptor contamination removed. 
+
+```
+java -jar $trimmomatic_location/trimmomatic-0.36.jar SE -phred33 $starting_files_location/step_1_output/control_1_TINY_merged.assembled.fastq $starting_files_location/step_1_output/control_1_TINY_clean.fastq SLIDINGWINDOW:4:15 MINLEN:99 
 ```
 
 ### Metagenomics: from reads to MAGs
