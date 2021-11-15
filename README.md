@@ -199,6 +199,90 @@ mkdir $starting_files_location/step_3_output/
 mv $starting_files_location/step_2_output/*ribodepleted* $starting_files_location/step_3_output/ 
 ```
 
+#### Annotation 
+Now that the initial sequences have been merged (if using paired-end sequencing), cleaned, and stripped of adaptor sequence contamination and ribosomal sequences, the next step is to annotate the mRNA reads to their corresponding match in a reference database.  
+
+It can be done using DIAMOND, a superfast BLAST-like aligner tool. This tool can process reads up to 10,000x as fast as BLASTX, with very little loss in accuracy. DIAMOND can also annotate against any provided database, allowing for custom databases to be created and searched against. 
+
+- Creating a DIAMOND-indexed database 
+Any database file needs to be indexed by DIAMOND and converted into a binary file before it can be searched against.  DIAMOND will convert any fasta file to a usable database with the following command: 
+
+```
+diamond makedb --in $database --db $database 
+```
+
+The --in flag specifies the starting fasta file that will be converted to a DIAMOND-searchable database. 
+
+DIAMOND can be given any database file to be indexed. Two databases that should be interesting to microbiome researchers are the NCBI RefSeq database and the SEED Subsystems database.  Maintained by NCBI, RefSeq is one of the most complete databases for general purposes and is generally accepted to contain high-quality annotations.  SEED Subsystems offers the unique ability to sort specific functions into hierarchies, letting similar functions be grouped under a category heading, such as “cellular respiration” or “protein biosynthesis.”  This can be very useful for examining overall functional activity within a metatranscriptome. 
+
+The RefSeq database can be accessed through NCBI’s FTP site, here: ftp://ftp.ncbi.nlm.nih.gov/refseq/release/complete/ .  The simplest approach is to download all non-redundant protein sequence files, use cat on the command line to merge them together into a single gzipped file: 
+
+```
+cat file1.gz file2.gz file3.gz > all_files.gz 
+```
+
+The SEED Subsystems database can be accessed through their FTP site here: ftp://ftp.theseed.org/subsystems/ 
+
+Note, however, that the SEED Subsystems database is not readily downloadable in a fasta format that can be indexed by DIAMOND.  The different levels of Subsystems hierarchy are maintained in different files.   For merging these files together to create a single, indexable database that contains all hierarchy information, see the relevant Github repository here: https://github.com/transcript/subsystems  
+
+- Annotating a file against a DIAMOND database 
+```
+For demonstration purpose we will use a TINY version of RefSeq and Subsystems database. 
+for file in $starting_files_location/step_3_output/*ribodepleted.fastq 
+do 
+     name=`echo $file | awk -F "ribodepleted" '{print $1 "RefSeq_annotated"}'` 
+
+     $diamond_location blastx --db $diamond_database -q $file -f 6 -o $name -k 1 --sensitive 
+done 
+
+mkdir $starting_files_location/step_4_output/ 
+mv $starting_files_location/step_3_output/*annotated* $starting_files_location/step_4_output/ 
+
+diamond blastx --db $diamond_database -q $filename -f 6 -o $diamond_output  -k 1  
+```
+The resulting data table is ready for step 3 in the SAMSA pipeline: **aggregation**. 
+
+#### Aggregation 
+
+Now that each metatranscriptome file has been annotated, the next step is to reduce the results down into a condensed and simplified format for statistical analysis.  DIAMOND returns the best match for each read in the starting file that meets its parameters for sequence specificity, much like a line-item receipt from a grocery store.  This step converts this large file into a condensed, sorted summary table that returns the total number of hits to each specific organism or function. 
+
+NOTE: This step will create two summary files for each starting metatranscriptome; one file will contain annotations grouped by organism (all Bacteroides reads will be grouped together), while the other file will contain annotations grouped by function (all reads coding for the enzyme lactase will be grouped together).  Later steps will document the steps necessary to perform a search for all functions expressed by a specific organism or group of organisms, or vice versa, all organisms performing a specific function or set of functions. 
+
+This next step uses the Python program “DIAMOND_analysis_counter.py”, and for the RefSeq database, will require access to the original (readable, not DIAMOND-converted) database file. 
+
+To use this program for aggregating all reads by organism: 
+```
+python DIAMOND_analysis_counter.py –I $infile –D database_file –O 
+```
+ 
+And to use this program for aggregating all reads by function: 
+```
+python DIAMOND_analysis_counter.py –I $infile –D database_file –F 
+``` 
+The result is a 3 column table, saved in tab-separated values (.tsv) format.  The columns are as follows: 
+
+*(percentage of total reads)		(read count)		(annotated organism or function)*
+
+The resulting files can either be viewed directly, or can be imported into R for further statistical analysis and figure generation. 
+
+
+-- AGGREGATING WITH ANALYSIS_COUNTER 
+```
+for file in $starting_files_location/step_4_output/*RefSeq_annotated* 
+do 
+  python3 $python_programs/standardized_DIAMOND_analysis_counter.py -I $file -D $RefSeq_db -O 
+  python3 $python_programs/standardized_DIAMOND_analysis_counter.py -I $file -D $RefSeq_db -F 
+done 
+
+mkdir $starting_files_location/step_5_output/ 
+mkdir $starting_files_location/step_5_output/RefSeq_results/ 
+mkdir $starting_files_location/step_5_output/RefSeq_results/org_results/ 
+mkdir $starting_files_location/step_5_output/RefSeq_results/func_results/ 
+
+mv $starting_files_location/step_4_output/*organism.tsv $starting_files_location/step_5_output/RefSeq_results/org_results/ 
+mv $starting_files_location/step_4_output/*function.tsv $starting_files_location/step_5_output/RefSeq_results/func_results/ 
+
+```
 ### Metagenomics: from reads to MAGs
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
 
@@ -214,3 +298,4 @@ To run the analysis you can simply run the following script inside the VM enviro
 #!/bin/bash
 
 ```
+
