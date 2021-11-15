@@ -34,6 +34,9 @@ In this section you will find a guideline for each practice that will be offered
 ### Metagenomics: from reads to MAGs
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
 
-As an example, we will use a reduced version of the metaHIT survey dataset available at .... with metawrap pipeline (https://github.com/bxlab/metaWRAP/blob/master/Usage_tutorial.md).
+As an example, we will use a reduced version of the metaHIT survey dataset available at .... with metawrap pipeline (https://github.com/bxlab/metaWRAP).
+
+![image](https://user-images.githubusercontent.com/11639261/141855861-4383c93f-40a0-4d66-bdaa-791b33fddaaf.png)
+
 
 
