@@ -363,29 +363,96 @@ TheSeed’s Subsystems database (referred to hereafter as “Subsystems”) feat
 
 Another way of viewing it: 
 
-- Carbohydrates 
+1- Carbohydrates 
 
-  - Organic acids 
+  a. Organic acids 
 
-    - Tricarballylate utilization 
+    i. Tricarballylate utilization 
 
-      - TcuB tricarballylate oxidation to cis-aconitate 
-
- 
+      1.  TcuB tricarballylate oxidation to cis-aconitate 
 
 The Subsystems database can be reworked into a SAMSA-searchable database, and metatranscriptome hits against this database can be compared at each hierarchy level.  Thus, instead of sorting through 100,000+ specific functions, it’s possible to obtain a metatranscriptome “overview” by looking only at differences in the top 20 or so level 1 Subsystems categories. 
 
- 
-
- 
-
-Annotating against a flattened Subsystems database 
+- Annotating against a flattened Subsystems database 
 
 Unfortunately, the Subsystems database, although available for download through an FTP portal (ftp://ftp.theseed.org/subsystems/), is not pre-configured in a format that makes it indexable by algorithms like DIAMOND.  For a more detailed view of obtaining a flattened, DIAMOND-indexable version of the Subsystems database, see the following Github page: https://github.com/transcript/subsystems.  Using the Python program “subsys_db_rebuilder.py” and the other files mentioned in the Github readme, the Subsystems database can be flattened into a single file containing all hierarchy, which can then be indexed by DIAMOND and used as a searchable database, much like the NCBI RefSeq database used in earlier steps. 
 
- 
-
 Once the Subsystems database is converted to a flattened format, running a DIAMOND annotation search against it is nearly identical to searching against RefSeq, in the earlier section of this guide: 
+
+- ANNOTATING WITH DIAMOND AGAINST SUBSYSTEMS 
+```
+for file in $starting_files_location/step_3_output/*ribodepleted.fastq 
+do 
+   name=`echo $file | awk -F "ribodepleted" '{print $1 "subsys_annotated"}'` 
+   $diamond_location blastx --db $diamond_subsys_db -q $file -o $name -k 1 --sensitive 
+done 
+
+mv $starting_files_location/step_3_output/*subsys_annotated* $starting_files_location/step_4_output/ 
+```
+
+- Converting annotations to hierarchies 
+
+The DIAMOND results will return the match for each given read to the specific Fig ID, the base unit of reference in the Subsystems database.  To obtain the full hierarchy, a Python program needs to go back to the database and recheck each read against the reference, adding in the necessary information. 
+
+The Python program that accomplishes this is called “DIAMOND_subsystems_analysis_counter.py”, and operates very similarly to the “DIAMOND_analysis_counter.py” program used for RefSeq results.  Similarly, this analysis counter program reads back through the DIAMOND output and condenses the reads down into a sorted abundance list – but it also includes all hierarchy information, if available, printed in additional columns in the tab-delimited output. 
+
+**Usage:**
+   *python DIAMOND_subsystems_analysis_counter.py -I $file -D $subsystems_db -O $file.analyzed -P $file.receipt*
+
+Note that, as the Python program does not read binary files, the linked Subsystems database must be the flattened file created for conversion to a DIAMOND-indexable database (but NOT the converted .daa file!).  The output will be saved under the name given with the –O flag, while the optional –P flag will create another file containing a line-by-line “receipt” with all hierarchy included. 
+
+
+- PYTHON SUBSYSTEMS ANALYSIS COUNTER 
+
+```
+for file in $starting_files_location/step_4_output/*subsys_annotated 
+do 
+  python3 $python_programs/DIAMOND_subsystems_analysis_counter.py -I $file -D $Subsys_db -O $file.hierarchy -P $file.receipt 
+  python3 $python_programs/subsys_reducer.py -I $file.hierarchy 
+done 
+
+mkdir $starting_files_location/step_5_output/Subsystems_results/ 
+mkdir $starting_files_location/step_5_output/Subsystems_results/receipts/ 
+
+mv $starting_files_location/step_4_output/*.reduced $starting_files_location/step_5_output/Subsystems_results/ 
+mv $starting_files_location/step_4_output/*.receipt $starting_files_location/step_5_output/Subsystems_results/receipts/ 
+
+rm $starting_files_location/step_4_output/*.hierarchy 
+```
+
+The resulting output file from this is ready to be imported into R for analysis, either for calculating significantly differentially expressed categories of functions, or for the creation of pie charts reflecting the relative levels of reads towards each Subsystems category. 
+
+- Analyzing Subsystems annotations for differential expression in R 
+Because the Subsystems results from the Python aggregating program contain additional columns with hierarchy information, a separate R script is needed to analyze the results.  These two R scripts are named “Subsystems_DESeq_stats.R” and “Subsystems_pie_charts.R”.   
+
+For figuring out significantly differentially expressed genes at each of the different hierarchy levels, “Subsystems_DESeq_stats.R” loads in the Subsystems results files, parses the resulting data tables down to only the requested hierarchy level, and then runs DESeq2 to figure out differential expression.   
+```
+Rscript $R_programs/Subsystems_DESeq_stats.R -I $starting_files_location/step_5_output/Subsystems_results/ -O Subsystems_level-1_DESeq_results.tab -L 1 -R $starting_files_location/step_2_output/raw_counts.txt 
+```
+**Result:** A data table containing DESeq evaluated differentially expressed transcripts for the selected hierarchy level, saved in a tab-delimited format. 
+
+- Analyzing Subsystems annotations for creating pie charts in R 
+
+Similar to the above program, “Subsystems_pie_charts.R” will load in the Subsystems files, compress down to only the selected level of hierarchy, and will then create a pie chart.  Note that currently, “Subsystems_pie_charts.R” does NOT choose to make two different pie charts for experimental vs. control files.  Instead, it will create a single pie chart.  If two contrasting pie charts are desired, run the program twice, feeding it each different group of files (once with the experimental files, a second time, separately, with control files). 
+
+By default, this script will produce output graphs of level 1 results.  For different levels, change the level indicator on line 49 (note that higher levels may provide too many files and will require the use of additional colors). 
+
+```
+Rscript $R_programs/Subsystems_pie_charts.R -I $starting_files_location/step_5_output/Subsystems_results/ -L 1  
+```
+ 
+**Result:** A pie chart, saved as a PDF under the given save filename.  Details can be altered by changing the ggplot2 graph created at the end of the program. 
+![image](https://user-images.githubusercontent.com/11639261/141872840-30b94bb2-df2d-40a9-910c-638c3b65a1a5.png)
+
+#### Further Applications Functions by a specific Organism 
+
+Although looking at the functional activity of all organisms can provide a useful overview of a metatranscriptome and may offer suggestions as to where to focus further investigation, it’s also important to have the ability to narrow the focus and only examine the outputs linked to specific organisms of interest.  For example, a gut microbiome study may be particularly interested in the activity of Lactobacillus species, and would like to restrict functional annotations to solely this genus. 
+
+Fortunately, because each read processed by SAMSA receives both an organism and a functional annotation, this is possible!  This is made possible using a Python program named “DIAMOND_specific_organism_retreiver.py”. 
+
+This program takes three inputs – the input file, which is the DIAMOND results file from annotating against the RefSeq database (-I flag), the specific organism to be selected (-SO flag), and the RefSeq database file (-D flag)(note: make sure to specify the original fasta file, not the DIAMOND-indexed binary).  The program first reads through the RefSeq database, constructing a dictionary of RefSeq IDs and their matching organisms.  It next reads through the infile, checking each annotated RefSeq ID’s entry to see whether the organism of interest’s name is present in the dictionary entry.  Only those entries with the chosen organism name present are passed on to the outfile (which is automatically generated, named after the combination of the target infile and the specific organism).   
+
+**Result:** The program produces an output, named after the infile and the specific organism it’s searching against.  This output file contains all individual transcripts that originated from the specific organism; the next step in the pipeline is to use DIAMOND_analysis_counter.py to reduce this down to a sorted abundance list. 
 
 ### Metagenomics: from reads to MAGs
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
