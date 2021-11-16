@@ -469,10 +469,26 @@ As an example, we will use a reduced version of the metaHIT survey dataset avail
 (https://www.gutmicrobiotaforhealth.com/metahit/).
 
 
-To run the analysis you can simply run the following script inside the VM environmet you previously prepared as described in sections above.
+To run the analysis you can simply run the following scripts inside the VM environmet you previously prepared as described in sections above.
+#### 1- Download raw data and move into *DATA_FOLDER* 
+```
+ANALYSIS_FOLDER=$HOME/omics_course/metaWRAP_analysis
+DATA_FOLDER=$HOME/omics_course/metaWRAP_data
+test -d $DATA_FOLDER || mkdir $DATA_FOLDER
+test -d $ANALYSIS_FOLDER || mkdir $ANALYSIS_FOLDER
+cd $DATA_FOLDER
+wget https://www.dropbox.com/sh/kza1vomc5na5lo7/AADgdtGEnMww18PZMOHP-Pila?dl=0
 
 ```
-#!/bin/bash
+
+#### 2- Run metaWRAP-Read_qc to trim the reads and remove human contamination 
+```
+cd $ANALYSIS_FOLDER
+mkdir 1_READ_QC
+metawrap read_qc -1 $DATA_FOLDER/ERR011347_1.fastq -2 $DATA_FOLDER/ERR011347_2.fastq -t 24 -o READ_QC/ERR011347
+metawrap read_qc -1 $DATA_FOLDER/ERR011348_1.fastq -2 $DATA_FOLDER/ERR011348_2.fastq -t 24 -o READ_QC/ERR011348
+metawrap read_qc -1 $DATA_FOLDER/ERR011349_1.fastq -2 $DATA_FOLDER/ERR011349_2.fastq -t 24 -o READ_QC/ERR011349
 
 ```
 
+#### 3- Run metaWRAP-Read_qc to trim the reads and remove human contamination 
