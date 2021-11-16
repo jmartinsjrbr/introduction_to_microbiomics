@@ -454,7 +454,7 @@ This program takes three inputs – the input file, which is the DIAMOND results
 
 **Result:** The program produces an output, named after the infile and the specific organism it’s searching against.  This output file contains all individual transcripts that originated from the specific organism; the next step in the pipeline is to use DIAMOND_analysis_counter.py to reduce this down to a sorted abundance list. 
 
-### Metagenomics: from reads to MAGs
+### Metagenomics: from reads to MAGs using metaWRAP pipeline
 In this hands on practice you will have the opportunity to learn all the steps involved in a standard metagenomics analysis, from pre-processing steps (read trimming, host read removal and reads taxonomic assignment) to Binning steps (Binning, binning refinement, bins reassemble, Bin quantification to address their abundance, Bin classification and functional annotation).
 
 As an example, we will use a reduced version of the metaHIT survey dataset available at .... with metawrap pipeline. (https://github.com/bxlab/metaWRAP)
