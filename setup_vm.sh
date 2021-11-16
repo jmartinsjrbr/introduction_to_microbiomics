@@ -105,7 +105,7 @@ echo -e "\n##KAIJU SETUP" >> ~/.bashrc
 echo "export PATH=\$HOME/omics_course/progs/kaiju/bin/:\$PATH" >> ~/.bashrc
 
 ##set kaiju databases (nr_euk)
-SORTMERNADB=$HOME/omics_course/db/kaiju
+KAIJUDB=$HOME/omics_course/db/kaiju
 test -d $KAIJUDB || mkdir $KAIJUDB
 SELECTED_DB='nr_euk'
 
@@ -227,6 +227,7 @@ METAWRAP_MAIN_DBDIR=$HOME/omics_course/db/metawrap
 CHECKM_FOLDER=$METAWRAP_MAIN_DBDIR/checkm
 KRAKEN2DB=$METAWRAP_MAIN_DBDIR/kraken2
 NCBI_NT=$METAWRAP_MAIN_DBDIR/ncbi/nt
+NCBI_tax=$METAWRAP_MAIN_DBDIR/ncbi/taxonomy
 BMTAGGER=$METAWRAP_MAIN_DBDIR/bmtagger
 
 test -d $METAWRAP_MAIN_DBDIR || mkdir $METAWRAP_MAIN_DBDIR
@@ -234,6 +235,7 @@ test -d $CHECKM_FOLDER || mkdir $CHECKM_FOLDER
 test -d $KRAKEN2DB || mkdir $KRAKEN2DB
 test -d $NCBI_NT || mkdir -p $NCBI_NT
 test -d $BMTAGGER || mkdir $BMTAGGER
+test -d $NCBI_tax || mkdir -p $NCBI_tax
 
 while true;
 do
@@ -261,7 +263,7 @@ do
 			cd ../
 
 			echo "*****INSTALLING NCBI TAXONOMY"
-			cd $NCBI_NT
+			cd $NCBI_tax
 			wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
 			tar -xvf taxdump.tar.gz
 			echo "Do not forget to set the TAXDUMP variable in the config-metawrap file! Run which config-metawrap to find it."
