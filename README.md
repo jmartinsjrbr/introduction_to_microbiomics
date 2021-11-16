@@ -367,9 +367,9 @@ Another way of viewing it:
 
   a. Organic acids 
 
-    i. Tricarballylate utilization 
+   i. Tricarballylate utilization 
 
-      1.  TcuB tricarballylate oxidation to cis-aconitate 
+   1. TcuB tricarballylate oxidation to cis-aconitate 
 
 The Subsystems database can be reworked into a SAMSA-searchable database, and metatranscriptome hits against this database can be compared at each hierarchy level.  Thus, instead of sorting through 100,000+ specific functions, it’s possible to obtain a metatranscriptome “overview” by looking only at differences in the top 20 or so level 1 Subsystems categories. 
 
