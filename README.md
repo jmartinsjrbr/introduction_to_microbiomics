@@ -21,8 +21,8 @@ and select the proper version according to host's OS;
 5-	Alternatively, those ones which have a powerful workstation computer or are running another virtualization environment can download the script in the link below to automatically setup the bioinformatics environment;
 
 6- Please find below login information to enter de VM:
-**user:** bioinformatica
-**password:** lnbr@2021
+ - **user:** bioinformatica
+ - **password:** lnbr@2021
 
 https://github.com/jmartinsjrbr/introduction_to_microbiomics/blob/main/setup_vm.sh .
 
