@@ -15,7 +15,7 @@ It can download one of the two options:
 
  - Single image file version: 
    - option 1: https://filesender.rnp.br/?s=download&token=88db7919-98f2-4ae2-a514-f3804d9ab1a1; (.ova file, can be imported directly into VirtualBox)
-   - option 2: (.gz file, must be decompressed before importing into VirtualBox)
+   - option 2: https://drive.google.com/file/d/1xavSAk7ux2EGgKl8F-FFh4DyLML_b9GU/view?usp=sharing (.gz file, must be decompressed before importing into VirtualBox).
 
 4 - To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options** drop-down menu and search for VM image you can download. 
 
