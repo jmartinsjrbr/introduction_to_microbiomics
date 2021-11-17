@@ -14,9 +14,9 @@ and select the proper version according to host's OS;
 It can download one of the two options:
 
  - Single image file version: 
-   - option 1: https://filesender.rnp.br/?s=download&token=88db7919-98f2-4ae2-a514-f3804d9ab1a1;
+   - option 1: https://filesender.rnp.br/?s=download&token=88db7919-98f2-4ae2-a514-f3804d9ab1a1; (.ova file, can be imported directed into VirtualBox)
    - option 2: 
-   - 
+
 4 - To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options** drop-down menu and search for VM image you can download. 
 
 5-	 Finally, click in **next** to review VM settings and click in the **import** button;
