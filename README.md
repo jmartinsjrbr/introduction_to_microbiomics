@@ -13,10 +13,10 @@ and select the proper version according to host's OS;
 3-	Download the pre-configured VM:
 It can download one of the two options:
 
- - Zipped version (splitted in 4 files): https://www.dropbox.com/sh/ey38wcrcuv43wxi/AAC9x3PBn1dMwrHn7hamZIrBa?dl=0 (zipped version splitted into 4 files, must be unziped before proceed to import it to VirtualBox) or 
-
- - Single image file version: https://www.dropbox.com/sh/er05qrscv9up2zg/AAA3u_Z4hhyn1DJB2lMcapQba?dl=0 ;
-  
+ - Single image file version: 
+   - option 1: https://filesender.rnp.br/?s=download&token=88db7919-98f2-4ae2-a514-f3804d9ab1a1;
+   - option 2: 
+   - 
 4 - To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options** drop-down menu and search for VM image you can download. 
 
 5-	 Finally, click in **next** to review VM settings and click in the **import** button;
@@ -34,7 +34,3 @@ chmod u+x setup_vm.sh
 7- Please find below login information to enter de VM:
  - **user:** bioinformatica
  - **password:** lnbr@2021
-
-
-Please access the link below to see the practices guidelines:
-https://github.com/jmartinsjrbr/introduction_to_microbiomics-practice
