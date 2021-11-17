@@ -31,6 +31,6 @@ chmod u+x setup_vm.sh
 ./setup_vm.sh
 ```
 
-7- Please find below login information to enter the VM:
+7- Please find below login information to sign in the VM:
  - **user:** bioinformatica
  - **password:** lnbr@2021
