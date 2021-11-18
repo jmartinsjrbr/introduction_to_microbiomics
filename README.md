@@ -16,7 +16,7 @@ It can download one of the two options:
  - Single image file version: 
    - option 1: https://filesender.rnp.br/?s=download&token=88db7919-98f2-4ae2-a514-f3804d9ab1a1; (.ova file, can be imported directly into VirtualBox)
    - option 2: https://drive.google.com/file/d/1xavSAk7ux2EGgKl8F-FFh4DyLML_b9GU/view?usp=sharing (.gz file, must be decompressed before importing into VirtualBox).
-   - option 3: https://cnpemcamp.sharepoint.com/:f:/s/microbiomics_course/Et7X1YupDVRFj_yaMXlkQoEBPLifqUToD-Qr3_63uraM1Q?e=khq3Zq or https://filesender.rnp.br/?s=download&token=1e0ea558-4072-4060-9966-e9f9f204a470(Four .zip files, that must be decompressed before importing the VM into VirtualBox)
+   - option 3: https://cnpemcamp.sharepoint.com/:f:/s/microbiomics_course/Et7X1YupDVRFj_yaMXlkQoEBPLifqUToD-Qr3_63uraM1Q?e=khq3Zq or https://filesender.rnp.br/?s=download&token=1e0ea558-4072-4060-9966-e9f9f204a470 (Four .zip files, that must be decompressed before importing the VM into VirtualBox)
 
 4 - To import VM image, open VirtualBox, go to **File** menu and select **Import Appliance**. Next, in the following window, keep *Local File System* selected in **Options** drop-down menu and search for VM image you can download. 
 
